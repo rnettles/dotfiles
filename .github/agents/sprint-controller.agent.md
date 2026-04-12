@@ -35,17 +35,19 @@ Stage the next task and manage lifecycle only.
 4. Generate single-task implementation brief only, and always write to `ai_dev_stack/ai_project_tasks/active/AI_IMPLEMENTATION_BRIEF.md`.
 5. Include task flags contract fields in brief.
 6. Create/switch feature/{task_id} branch.
-7. Do not implement code.
-8. When staging the first task of a new phase (or the first sprint of a phase):
+7. After successful task staging, run a non-interactive checkpoint commit that captures staging artifacts (`active/AI_IMPLEMENTATION_BRIEF.md`, `active/current_task.json`, `ai_state/sprint_state.json`, and any active-slot lifecycle files changed during staging).
+8. Do not implement code.
+9. When staging the first task of a new phase (or the first sprint of a phase):
    - Read the `Design Artifacts` section of the phase plan.
    - Confirm all required TDNs are `Status: Approved` before proceeding.
    - If any required TDN is not Approved, stop and surface the blocking TDN to the operator instead of staging the brief.
-9. After closing a task, prompt the operator to create and close a PR for that task before moving on.
-10. Never create task-suffixed brief filenames in `active/` (for example `AI_IMPLEMENTATION_BRIEF_<TASKID>.md`). The active slot is a single-file overwrite model.
+10. After closing a task, prompt the operator to create and close a PR for that task before moving on.
+11. Never create task-suffixed brief filenames in `active/` (for example `AI_IMPLEMENTATION_BRIEF_<TASKID>.md`). The active slot is a single-file overwrite model.
 
 ## Active Artifact Lifecycle
 
 - Overwrite active artifacts on each stage and close transition; do not append carry-forward narrative.
+- A successful stage transition must end with a checkpoint commit of the staged artifact set.
 - Preserve historical detail only in `ai_dev_stack/history/task_history/`.
 - When preparing downstream lifecycle state, use the compact contract in `ai_dev_stack/ai_guidance/AI_HANDOFF_CONTRACT.md`.
 - `current_task.json.brief_path` and any `evidence_refs` must reference only `ai_dev_stack/ai_project_tasks/active/AI_IMPLEMENTATION_BRIEF.md`.
