@@ -30,7 +30,9 @@ Stage the next task and manage lifecycle only.
 ## Responsibilities
 
 1. Reconcile previous task completion when verifier PASS.
-2. Before staging the next task, check whether the current task is still open (`active`, `in-progress`, or `ready_for_verification`). If open, prompt the operator to close the current task first.
+2. **Pre-Stage Gate — enforce ALL of the following before writing any staging artifact or creating the feature branch:**
+   a. **Open task check:** `current_task.json.status` must not be `active`, `in-progress`, or `ready_for_verification`. If it is, stop and require the operator to close the current task first.
+   b. **PR closed check:** Read `sprint_state.json.completed_tasks`. If it is non-empty, the most recently completed task's branch must have a merged/closed PR before staging proceeds. Do **not** infer PR status from task state — require the operator to explicitly confirm the PR is merged. If the operator cannot confirm this, stop and surface the blocking PR to the operator. Do not write staging artifacts until confirmation is received.
 3. Select next incomplete task.
 4. Generate single-task implementation brief only, and always write to `ai_dev_stack/ai_project_tasks/active/AI_IMPLEMENTATION_BRIEF.md`.
 5. Include task flags contract fields in brief.
@@ -41,7 +43,7 @@ Stage the next task and manage lifecycle only.
    - Read the `Design Artifacts` section of the phase plan.
    - Confirm all required TDNs are `Status: Approved` before proceeding.
    - If any required TDN is not Approved, stop and surface the blocking TDN to the operator instead of staging the brief.
-10. After closing a task, prompt the operator to create and close a PR for that task before moving on.
+10. After closing a task, **do not proceed to staging the next task** until the operator confirms the closed task's PR has been merged. This is a hard gate, not a suggestion. Surface the PR URL and require acknowledgment before any staging artifacts are written.
 11. Never create task-suffixed brief filenames in `active/` (for example `AI_IMPLEMENTATION_BRIEF_<TASKID>.md`). The active slot is a single-file overwrite model.
 
 ## Active Artifact Lifecycle
