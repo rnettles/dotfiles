@@ -19,6 +19,7 @@ Plan only. Do not implement code.
 5. `ai_dev_stack/ai_guidance/AI_TASK_FLAGS_CONTRACT.md`
 6. `ai_dev_stack/ai_guidance/AI_RUNTIME_LOADING_RULES.md`
 7. `ai_dev_stack/ai_guidance/AI_DESIGN_PROCESS.md`
+8. `ai_dev_stack/ai_guidance/AI_RUNTIME_GATES.md`
 
 ## Staged Retrieval
 
@@ -47,15 +48,18 @@ Plan only. Do not implement code.
    - If a Spike is needed before the TDN can be approved, stage the Spike as a pre-sprint task.
    - If an ADR is required, create it using `TEMPLATE_adr.md`.
 10. Do not advance a phase from `Draft → Planning` until all required design artifacts are identified. Do not advance `Planning → Active` until all required TDNs are `Status: Approved`.
+11. Every sprint plan must include an `Execution mode` section with: lane (`normal` or `fast-track`), rationale, linked intake (or none), and controls reference.
+12. If a sprint is marked `fast-track`, require an explicit operator request and ensure the linked intake and rationale are recorded in both the sprint plan and `next_steps.md` Fast Track lane.
+13. If `fast-track` is selected, plan tasks and sequencing to satisfy mandatory controls in `AI_RUNTIME_GATES.md` (checkpoint cadence, checkpoint gate runs, and final full validation).
 
 ## UX Planning Rules
 
-11. For every feature that introduces or changes user-facing behavior (CLI output, UI screen, or chat flow):
+14. For every feature that introduces or changes user-facing behavior (CLI output, UI screen, or chat flow):
    - Create `ai_dev_stack/ai_project_tasks/active/ux/user_flow.md` using `TEMPLATE_user_flow.md` before staging Sprint 1.
    - Define: the user, the interaction model (CLI / UI / Chat / Hybrid), the primary goal, the happy path flow (numbered steps), and all known failure states.
    - If the interaction model is UI or Hybrid: also create `wireframe.md` using `TEMPLATE_wireframe.md`.
    - If the feature has complex UI with multiple components or accessibility requirements: also create `ui_spec.md` using `TEMPLATE_ui_spec.md`.
    - Do not advance `Planning → Active` until `user_flow.md` is `Status: Approved`.
-12. The UX Gate in `AI_PHASE_PROCESS.md` section 4b is a hard gate. It is not optional for user-facing features.
-13. Failure states are part of the user flow. Every `user_flow.md` must include at least one failure state row, even if the happy path has no expected failures.
-14. The `user_flow.md` is the interaction contract between planner, implementer, and verifier. Do not leave it vague — include specific commands, inputs, or UI interactions at each step.
+15. The UX Gate in `AI_PHASE_PROCESS.md` section 4b is a hard gate. It is not optional for user-facing features.
+16. Failure states are part of the user flow. Every `user_flow.md` must include at least one failure state row, even if the happy path has no expected failures.
+17. The `user_flow.md` is the interaction contract between planner, implementer, and verifier. Do not leave it vague — include specific commands, inputs, or UI interactions at each step.

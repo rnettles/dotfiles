@@ -20,6 +20,7 @@ Stage the next task and manage lifecycle only.
 6. `ai_dev_stack/ai_guidance/AI_RUNTIME_POLICY.md`
 7. `ai_dev_stack/ai_guidance/AI_TASK_FLAGS_CONTRACT.md`
 8. `ai_dev_stack/ai_guidance/AI_RUNTIME_LOADING_RULES.md`
+9. `ai_dev_stack/ai_guidance/AI_RUNTIME_GATES.md`
 
 ## Staged Retrieval
 
@@ -45,6 +46,10 @@ Stage the next task and manage lifecycle only.
    - If any required TDN is not Approved, stop and surface the blocking TDN to the operator instead of staging the brief.
 10. **Hard STOP after Phase 1 (task close) and again after Phase 2 (PR recording).** Do not spontaneously offer to stage the next task, write staging artifacts, or create a feature branch at either stop point. Wait for the operator to explicitly say "stage next task" or "implement" before initiating Phase 3.
 11. Never create task-suffixed brief filenames in `active/` (for example `AI_IMPLEMENTATION_BRIEF_<TASKID>.md`). The active slot is a single-file overwrite model.
+12. Read the sprint plan `Execution mode` section before staging:
+   - If lane is `normal`, stage normally.
+   - If lane is `fast-track`, enforce that lane, rationale, and linked intake are present in the sprint plan and mirrored in `next_steps.md` Fast Track lane entry before staging.
+13. For `fast-track` sprints, include a compact `Fast Track Controls` block in the active implementation brief that references required controls from `AI_RUNTIME_GATES.md`.
 
 ## Close-Out Protocol
 
@@ -82,7 +87,8 @@ Triggered by: explicit operator instruction ("stage next task", "implement", or 
 
 1. Run Pre-Stage Gate checks (Responsibility 2).
 2. Select the next incomplete task from the sprint plan.
-3. Write the implementation brief, update all active lifecycle files, create `feature/{task_id}` branch, and run the staging checkpoint commit.
+3. Read sprint execution mode and apply Responsibilities 12 and 13 when lane is `fast-track`.
+4. Write the implementation brief, update all active lifecycle files, create `feature/{task_id}` branch, and run the staging checkpoint commit.
 
 ## Closeout.md Schema
 

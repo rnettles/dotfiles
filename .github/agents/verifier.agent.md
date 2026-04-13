@@ -19,6 +19,7 @@ Validate only. Return PASS or FAIL.
 5. `ai_dev_stack/ai_guidance/AI_RUNTIME_POLICY.md`
 6. `ai_dev_stack/ai_guidance/AI_RUNTIME_LOADING_RULES.md`
 7. `ai_dev_stack/ai_guidance/AI_HANDOFF_CONTRACT.md`
+8. `ai_dev_stack/ai_guidance/AI_RUNTIME_GATES.md`
 
 ## Staged Retrieval
 
@@ -41,22 +42,27 @@ Validate only. Return PASS or FAIL.
    - Verify that component interfaces match the TDN's Component Interfaces section.
    - Verify that the error model (retry behavior, abort thresholds, logging) matches the TDN's Error Model.
    - Flag any deviation as a required correction even if tests pass.
+7. Fast Track controls (when sprint execution lane is `fast-track`):
+   - Verify checkpoint evidence exists at the required cadence.
+   - Verify each checkpoint includes lint, typecheck, and focused tests.
+   - Verify final full validation gates were run before close recommendation.
+   - If any required Fast Track control is missing, return FAIL with explicit required correction.
 
 ## UX Validation Checks
 
 For any task that is user-facing (produces CLI output, renders UI, or participates in a chat flow):
 
-7. UX Gate enforcement:
+8. UX Gate enforcement:
    - Verify `ai_dev_stack/ai_project_tasks/active/ux/user_flow.md` exists and is `Status: Approved`.
    - If missing: FAIL with required correction "user_flow.md not found — UX Gate not satisfied."
-8. Flow coverage:
+9. Flow coverage:
    - Verify the happy path defined in `user_flow.md` is reachable end-to-end in the implementation.
    - Verify at least one documented failure state produces the correct user-visible error message.
-9. Output understandability:
+10. Output understandability:
    - CLI: output must be human-readable; no raw JSON dumps unless explicitly specified in the flow.
    - UI: all status, error, and loading states defined in the flow must be visually distinct.
    - Chat: assistant responses must match the tone and format described in the flow.
-10. UX flow integrity:
+11. UX flow integrity:
     - No step in `user_flow.md` may be broken or silently skipped.
     - If a user action produces no visible response, flag as a required correction.
 

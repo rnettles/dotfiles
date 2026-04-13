@@ -1,6 +1,6 @@
 ---
 name: flow-task
-description: Orchestrates a single-task governance loop: implement, verify, fix-on-fail (max 3), close/stage next task, then surface PR and next task id.
+description: Orchestrates a single-task governance loop: implement, verify, fix-on-fail (max 3), close task, then surface PR and wait for explicit next-task staging instruction.
 argument-hint: Implement and verify a sprint task.
 tools: ['read', 'search', 'edit', 'execute', 'agent']
 ---
@@ -34,8 +34,9 @@ Workflow:
 	- `changed_scope`, `verification_state`, `open_risks`, `next_role_action`, `evidence_refs`
 - Stop after 3 failed attempts and surface escalation using those same fields.
 
-5. If PASS: close and stage
-- Run `@sprint-controller.md` to close current task and stage next task.
+5. If PASS: close only
+- Run `@sprint-controller.md` to execute Close-Out Protocol Phase 1.
+- Do not auto-stage the next task; wait for explicit operator instruction per sprint-controller hard-stop rules.
 
 6. PR + completion output
 - Push feature branch and create/surface PR URL.
@@ -46,7 +47,10 @@ Workflow:
 	- `open_risks`
 	- `next_role_action`
 	- `evidence_refs`
+- Include Fast Track evidence status when applicable:
+	- `execution_lane` = `normal` | `fast-track`
+	- `fast_track_controls_verified` = `true` | `false` | `n/a`
 - Also include:
 	- closed task id
 	- PR URL
-	- next staged task id from `active/current_task.json`
+	- next staged task id from `active/current_task.json` (only if explicitly staged after operator instruction)
