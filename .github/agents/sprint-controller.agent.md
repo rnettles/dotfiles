@@ -84,20 +84,6 @@ Triggered by: explicit operator instruction ("stage next task", "implement", or 
 2. Select the next incomplete task from the sprint plan.
 3. Write the implementation brief, update all active lifecycle files, create `feature/{task_id}` branch, and run the staging checkpoint commit.
 
-## Sprint Close-Out Protocol
-
-Triggered by: all tasks in the sprint are closed AND the operator explicitly requests sprint close-out (e.g. "close S02", "close the sprint").
-
-**Execute in this exact order. Do not skip or reorder any step. Do not mark the sprint closed before archiving.**
-
-1. **HARD STOP — Documenter gate:** Require the operator to explicitly confirm that the documenter agent has been run and sprint documentation is complete. Do not proceed to any subsequent step until this confirmation is received. Surface this as a blocking gate.
-2. **Archive sprint plan:** Copy the active sprint plan (`ai_dev_stack/ai_project_tasks/active/sprint_plan_{SPRINT_ID}.md`) to `ai_dev_stack/history/task_history/{SPRINT_ID}/sprint_plan_{SPRINT_ID}.md`. This must happen before any state changes.
-3. **Update sprint state:** Set `sprint_state.json.status` to `closed` and `active_task_id` to `null`.
-4. **Create sprint closeout record:** Create `ai_dev_stack/history/task_history/{SPRINT_ID}/closeout.md` with a sprint-level summary of all completed tasks, verification outcomes, and sprint goal.
-5. **Commit all sprint close-out artifacts** to the current feature branch:
-   `git commit -m "chore({SPRINT_ID}): close sprint and archive artifacts"`
-6. **STOP.** Report sprint as closed. Remind the operator to open a PR for the final task branch → main so the sprint close-out reaches the main branch. Do not offer to stage the next sprint or phase without explicit instruction.
-
 ## Closeout.md Schema
 
 All fields are required. Leave `PR:` as `TBD` at Phase 1 close; update it to the full GitHub URL in Phase 2.
