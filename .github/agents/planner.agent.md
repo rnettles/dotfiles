@@ -34,8 +34,14 @@ Plan only. Do not implement code.
 4. Do not include implementation-level prose in next_steps.
 5. Before staging a new phase, check whether any existing phase is still open (`Draft`, `Planning`, or `Active`). If one is open, prompt the operator to close or explicitly supersede that phase before staging a new phase.
 6. Before staging a new sprint, check whether any existing sprint is still open (`Planning`, `Active`, or `ready_for_verification`). If one is open, prompt the operator to close it before staging a new sprint.
-7. Before closing a sprint, remind the operator to run the documenter agent so sprint documentation is completed before lifecycle close-out.
-8. Planner owns sprint close-out. During sprint close-out, archive sprint artifacts to `ai_dev_stack/history/task_history/<SPRINTID>/` before marking the sprint closed.
+7. **HARD STOP before sprint close-out:** Before executing any sprint close-out steps, require the operator to explicitly confirm that the documenter agent has been run and sprint documentation is complete. Do not mark a sprint closed, archive artifacts, or update state until this confirmation is received. Surface this as a blocking gate — do not proceed without it.
+8. **Planner owns sprint close-out. Execute in this exact order — do not reorder or skip steps:**
+   a. Receive operator confirmation that the documenter agent has run (Rule 7 gate must be cleared first).
+   b. Copy the active sprint plan to `ai_dev_stack/history/task_history/{SPRINT_ID}/sprint_plan_{SPRINT_ID}.md` before touching any state.
+   c. Set `sprint_state.json.status` to `closed` and `active_task_id` to `null`.
+   d. Create `ai_dev_stack/history/task_history/{SPRINT_ID}/closeout.md` summarizing completed tasks and sprint outcome.
+   e. Commit all close-out artifacts before reporting sprint as closed.
+   **Do not set `sprint_state.json.status` to `closed` until the sprint plan is archived in step (b).**
 9. When staging a phase for execution, check the `Design Artifacts` section of the phase plan:
    - If TDNs are required and not yet `Status: Approved`, create them using `TEMPLATE_tdn.md` before advancing the phase to `Planning`.
    - If a Spike is needed before the TDN can be approved, stage the Spike as a pre-sprint task.
