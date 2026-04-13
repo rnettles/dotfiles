@@ -12,14 +12,15 @@ Plan only. Do not implement code.
 
 ## Always Load
 
-1. `ai_dev_stack/ai_guidance/AI_CONTEXT.md`
-2. `ai_dev_stack/ai_guidance/AI_RULES.md`
-3. active FR source file
-4. `ai_dev_stack/ai_guidance/AI_RUNTIME_POLICY.md`
-5. `ai_dev_stack/ai_guidance/AI_TASK_FLAGS_CONTRACT.md`
-6. `ai_dev_stack/ai_guidance/AI_RUNTIME_LOADING_RULES.md`
-7. `ai_dev_stack/ai_guidance/AI_DESIGN_PROCESS.md`
-8. `ai_dev_stack/ai_guidance/AI_RUNTIME_GATES.md`
+1. `ai_dev_stack/ai_guidance/COORDINATION_CONTEXT.md`
+2. `ai_dev_stack/ai_project_tasks/PROJECT_CONTEXT.md`
+3. `ai_dev_stack/ai_guidance/AI_RULES.md`
+4. active FR source file
+5. `ai_dev_stack/ai_guidance/AI_RUNTIME_POLICY.md`
+6. `ai_dev_stack/ai_guidance/AI_TASK_FLAGS_CONTRACT.md`
+7. `ai_dev_stack/ai_guidance/AI_RUNTIME_LOADING_RULES.md`
+8. `ai_dev_stack/ai_guidance/AI_DESIGN_PROCESS.md`
+9. `ai_dev_stack/ai_guidance/AI_RUNTIME_GATES.md`
 
 ## Staged Retrieval
 
