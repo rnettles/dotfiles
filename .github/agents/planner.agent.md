@@ -38,6 +38,7 @@ Plan only. Do not implement code.
 6. Before staging a new sprint, check whether any existing sprint is still open (`Planning`, `Active`, or `ready_for_verification`). If one is open, prompt the operator to close it before staging a new sprint.
 7. **HARD STOP before sprint close-out:** Before executing any sprint close-out steps, require the operator to explicitly confirm that the documenter agent has been run and sprint documentation is complete. Do not mark a sprint closed, archive artifacts, or update state until this confirmation is received. Surface this as a blocking gate — do not proceed without it.
 8. **Planner owns sprint close-out. Execute in this exact order — do not reorder or skip steps:**
+   > **Sprint close-out vs. task close-out:** Sprint-controller handles *task-level* close-out after each individual task PASS. Planner's sprint close-out is a separate, sprint-level operation that runs once — after all tasks in the sprint are verified complete. Do not conflate them.
    a. Receive operator confirmation that the documenter agent has run (Rule 7 gate must be cleared first).
    b. Copy the active sprint plan to `ai_dev_stack/history/task_history/{SPRINT_ID}/sprint_plan_{SPRINT_ID}.md` before touching any state.
    c. Set `sprint_state.json.status` to `closed` and `active_task_id` to `null`.

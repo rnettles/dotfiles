@@ -53,7 +53,10 @@ Stage the next task and manage lifecycle only.
    - If lane is `fast-track`, enforce that lane, rationale, and linked intake are present in the sprint plan and mirrored in `next_steps.md` Fast Track lane entry before staging.
 13. For `fast-track` sprints, include a compact `Fast Track Controls` block in the active implementation brief that references required controls from `AI_RUNTIME_GATES.md`.
 
-## Close-Out Protocol
+## Task Close-Out Protocol
+
+> **Scope:** Task-level close-out only. This protocol runs after each individual task PASS verdict.
+> **Sprint-level close-out** (archiving the sprint, updating sprint_state.json, and marking the sprint `closed`) is owned by the **planner** and executes separately after all tasks in the sprint are complete.
 
 Execute in order whenever a verifier PASS is received. Each phase ends with a mandatory STOP — do not cross into the next phase without explicit operator action.
 
