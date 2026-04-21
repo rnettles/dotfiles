@@ -62,9 +62,10 @@ Triggered by: verifier PASS received.
 1. Set `current_task.json.status` to `closed`. Update `sprint_state.json.completed_tasks` and clear `active_task_id`.
 2. Create `ai_dev_stack/history/task_history/{group}/{task_id}/closeout.md` using the **Closeout.md Schema** below. Set `PR:` to `TBD`.
 3. Run `python ai_dev_stack/scripts/archive_task_artifacts.py --task-id {task_id} --overwrite` to snapshot all active lifecycle artifacts into task history.
-4. Commit all close-out artifacts to the **current feature branch**:
+4. Reset `ai_dev_stack/ai_guidance/AI_FIX_REQUEST.md` to null state (clear the `Current Task` section body and reset the `Structured Handoff` JSON to the empty template). This prevents stale FAIL state from bleeding into the next task's fix window.
+5. Commit all close-out artifacts to the **current feature branch**:
    `git commit -m "feat({task_id}): close task and archive lifecycle artifacts"`
-5. **STOP.** Report to the operator:
+6. **STOP.** Report to the operator:
    - The task is closed.
    - A PR should be opened for `feature/{task_id}` → `main`.
    - Once it is merged, provide the PR number to complete the closeout record.
