@@ -14,8 +14,9 @@ Sync documentation after verified delivery only.
 
 1. `ai_dev_stack/ai_state/sprint_state.json`
 2. `ai_dev_stack/ai_project_tasks/active/verification_result.json`
-3. relevant sprint plan
-4. `ai_dev_stack/ai_guidance/AI_RUNTIME_LOADING_RULES.md`
+3. `ai_dev_stack/ai_project_tasks/active/test_results.json`
+4. relevant sprint plan
+5. `ai_dev_stack/ai_guidance/AI_RUNTIME_LOADING_RULES.md`
 
 ## Staged Retrieval
 

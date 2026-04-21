@@ -18,7 +18,8 @@ Repair only the verified failure scope.
 4. `ai_dev_stack/ai_project_tasks/active/AI_IMPLEMENTATION_BRIEF.md`
 5. `ai_dev_stack/ai_guidance/AI_RUNTIME_POLICY.md`
 6. `ai_dev_stack/ai_guidance/AI_RUNTIME_LOADING_RULES.md`
-7. `ai_dev_stack/ai_guidance/AI_HANDOFF_CONTRACT.md`
+7. `ai_dev_stack/ai_guidance/AI_RUNTIME_GATES.md`
+8. `ai_dev_stack/ai_guidance/AI_HANDOFF_CONTRACT.md`
 
 ## Staged Retrieval
 

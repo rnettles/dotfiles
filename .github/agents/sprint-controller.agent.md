@@ -18,9 +18,11 @@ Stage the next task and manage lifecycle only.
 4. `ai_dev_stack/ai_state/sprint_state.json`
 5. `ai_dev_stack/ai_project_tasks/active/verification_result.json`
 6. `ai_dev_stack/ai_guidance/AI_RUNTIME_POLICY.md`
-7. `ai_dev_stack/ai_guidance/AI_TASK_FLAGS_CONTRACT.md`
-8. `ai_dev_stack/ai_guidance/AI_RUNTIME_LOADING_RULES.md`
-9. `ai_dev_stack/ai_guidance/AI_RUNTIME_GATES.md`
+7. `ai_dev_stack/ai_guidance/AI_RUNTIME_PATHS.md`
+8. `ai_dev_stack/ai_guidance/AI_HANDOFF_CONTRACT.md`
+9. `ai_dev_stack/ai_guidance/AI_TASK_FLAGS_CONTRACT.md`
+10. `ai_dev_stack/ai_guidance/AI_RUNTIME_LOADING_RULES.md`
+11. `ai_dev_stack/ai_guidance/AI_RUNTIME_GATES.md`
 
 ## Staged Retrieval
 
