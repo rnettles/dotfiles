@@ -83,3 +83,17 @@ must not self-approve any artifact it produces.
 16. The UX Gate in `AI_PHASE_PROCESS.md` section 4b is a hard gate. It is not optional for user-facing features.
 17. Failure states are part of the user flow. Every `user_flow.md` must include at least one failure state row, even if the happy path has no expected failures.
 18. The `user_flow.md` is the interaction contract between planner, implementer, and verifier. Do not leave it vague — include specific commands, inputs, or UI interactions at each step.
+
+## Work Track Routing
+
+Before opening any intake item, spec file, or queue entry, route the work correctly:
+
+| Situation | Route |
+|---|---|
+| Externally reported production bug (Jira ticket, support ticket), ≤3 slices, no FR/ADR impact | **Defect** — `defects/DEF-*` — see `AI_DEFECT_PROCESS.md` |
+| Internally discovered bounded improvement, ≤3 slices, no FR impact | **Side Quest** — `side_quests/SQ-*` — see `AI_SIDE_QUEST_PROCESS.md` |
+| Any finding requiring new/amended FR, ADR, or architecture doc | **Feature Intake** — `intake/INT-*` — see `AI_INTAKE_PROCESS.md` |
+| P0/P1 fix already deployed without intake | **Reconciliation Intake** — `intake/RC-*` — within 48 hours |
+| Externally reported bug that requires FR/ADR change | Escalate to Feature Intake, not Defect |
+
+**Key distinction:** Defects are for externally reported bugs only. Internally discovered gaps go to Side Quest. Never use Side Quest for Jira tickets or customer-reported issues.
