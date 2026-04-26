@@ -1,27 +1,48 @@
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
 
-rem 1. Define Paths
-rem The source is the local dotfiles repo containing the agent definitions
+rem ================================================================
+rem  Copilot Environment Setup — dotfiles/install.bat
+rem
+rem  1. Locate ai-project_template (sibling of this repo)
+rem  2. Pull latest template from remote
+rem  3. Sync *.agent.md  →  %USERPROFILE%\.copilot\agents\
+rem ================================================================
+
 set "SCRIPT_DIR=%~dp0"
 if "%SCRIPT_DIR:~-1%"=="\" set "SCRIPT_DIR=%SCRIPT_DIR:~0,-1%"
-set "SOURCE_DIR=%SCRIPT_DIR%\.github\agents"
-rem The target is the official global path for Copilot agents on Windows
+
+rem ai-project_template lives as a sibling of the dotfiles repo
+set "TEMPLATE_DIR=%SCRIPT_DIR%\..\ai-project_template"
+set "AGENT_SOURCE=%TEMPLATE_DIR%\.github\agents"
 set "TARGET_DIR=%USERPROFILE%\.copilot\agents"
 
-echo Starting Copilot Agent sync...
+rem ── 1. Verify template repo is present ───────────────────────────
+if not exist "%TEMPLATE_DIR%\.git" (
+    echo Error: ai-project_template not found at "%TEMPLATE_DIR%".
+    echo Clone it as a sibling of this repo before running install.bat.
+    exit /b 1
+)
 
-rem 2. Create the target directory if it doesn't exist
+rem ── 2. Pull latest template ───────────────────────────────────────
+echo Pulling latest ai-project_template...
+pushd "%TEMPLATE_DIR%"
+git pull --quiet --ff-only
+if errorlevel 1 echo Warning: Could not fast-forward ai-project_template. Continuing with local version.
+popd
+
+rem ── 3. Sync agents to %%USERPROFILE%%\.copilot\agents ─────────────
+echo.
+echo Syncing Copilot agents...
 if not exist "%TARGET_DIR%" mkdir "%TARGET_DIR%"
 
-rem 3. Create symbolic links, falling back to copies when symlinks are unavailable
-if not exist "%SOURCE_DIR%\" (
-    echo Error: Source directory "%SOURCE_DIR%" not found. Check repo structure.
+if not exist "%AGENT_SOURCE%\" (
+    echo Error: Agent source "%AGENT_SOURCE%" not found.
     exit /b 1
 )
 
 set "FOUND_MATCH="
-for %%F in ("%SOURCE_DIR%\*.agent.md") do (
+for %%F in ("%AGENT_SOURCE%\*.agent.md") do (
     if exist "%%~fF" (
         set "FOUND_MATCH=1"
         set "TARGET_FILE=%TARGET_DIR%\%%~nxF"
@@ -35,19 +56,21 @@ for %%F in ("%SOURCE_DIR%\*.agent.md") do (
                 echo Error: Failed to sync %%~nxF
                 exit /b 1
             )
-            echo Synced %%~nxF using copy fallback.
+            echo   Synced %%~nxF [copy]
         ) else (
-            echo Linked %%~nxF
+            echo   Linked %%~nxF
         )
     )
 )
 
 if not defined FOUND_MATCH (
-    echo Error: No .agent.md files found in "%SOURCE_DIR%".
+    echo Error: No .agent.md files found in "%AGENT_SOURCE%".
     exit /b 1
 )
 
-rem 4. Final verification of the synced files
-dir "%TARGET_DIR%"
+echo.
+echo Done. Agents available in: %TARGET_DIR%
+echo To sync a project's AI dev stack, run:
+echo   dotfiles\sync-project.bat ^<project-root-path^>
 
 endlocal
